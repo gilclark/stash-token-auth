@@ -47,7 +47,6 @@
     <dependency>
       <groupId>com.atlassian.templaterenderer</groupId>
       <artifactId>atlassian-template-renderer-api</artifactId>
-      <version>1.5.7</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
@@ -58,7 +57,6 @@
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>4.10</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -70,7 +68,6 @@
     <dependency>
       <groupId>commons-lang</groupId>
       <artifactId>commons-lang</artifactId>
-      <version>2.6</version>
       <scope>provided</scope>
     </dependency>
 
@@ -90,8 +87,7 @@
     <dependency>
       <groupId>com.google.code.gson</groupId>
       <artifactId>gson</artifactId>
-      <version>2.2.2-atlassian-1</version>
-    </dependency>
+      </dependency>
   </dependencies>
 
   <build>
@@ -120,6 +116,52 @@
         </configuration>
       </plugin>
     </plugins>
+    <pluginManagement>
+    	<plugins>
+    		<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
+    		<plugin>
+    			<groupId>org.eclipse.m2e</groupId>
+    			<artifactId>lifecycle-mapping</artifactId>
+    			<version>1.0.0</version>
+    			<configuration>
+    				<lifecycleMappingMetadata>
+    					<pluginExecutions>
+    						<pluginExecution>
+    							<pluginExecutionFilter>
+    								<groupId>
+    									com.atlassian.maven.plugins
+    								</groupId>
+    								<artifactId>
+    									maven-stash-plugin
+    								</artifactId>
+    								<versionRange>
+    									[5.0.13,)
+    								</versionRange>
+    								<goals>
+    									<goal>generate-manifest</goal>
+    									<goal>
+    										filter-test-plugin-descriptor
+    									</goal>
+    									<goal>compress-resources</goal>
+    									<goal>generate-rest-docs</goal>
+    									<goal>
+    										copy-bundled-dependencies
+    									</goal>
+    									<goal>
+    										filter-plugin-descriptor
+    									</goal>
+    								</goals>
+    							</pluginExecutionFilter>
+    							<action>
+    								<ignore></ignore>
+    							</action>
+    						</pluginExecution>
+    					</pluginExecutions>
+    				</lifecycleMappingMetadata>
+    			</configuration>
+    		</plugin>
+    	</plugins>
+    </pluginManagement>
   </build>
 
   <properties>

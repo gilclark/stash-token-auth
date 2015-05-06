@@ -7,10 +7,16 @@ import com.atlassian.sal.api.transaction.TransactionTemplate;
 import com.thundermoose.plugins.paths.AdminPaths;
 import com.thundermoose.plugins.paths.ProjectPaths;
 import com.thundermoose.plugins.paths.RepoPaths;
+import com.thundermoose.plugins.paths.ScmPaths;
 import com.thundermoose.plugins.utils.KeyGenerator;
+
 import org.apache.commons.lang3.BooleanUtils;
+import org.eclipse.jetty.util.log.Log;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class AdminConfigDao {
+	private final static Logger log = LoggerFactory.getLogger(AdminConfigResource.class);
   private final PluginSettingsFactory pluginSettingsFactory;
   private final TransactionTemplate transactionTemplate;
   private AdminConfig cachedConfig;
@@ -39,7 +45,12 @@ public class AdminConfigDao {
       config.setProjectPaths(new ProjectPaths(true, true));
     }
     if (config.getRepoPaths() == null) {
+    	log.warn("GWC !!!!!!!!!!!!!!!set default repo apths");
       config.setRepoPaths(new RepoPaths(true, true, true, true, true, true));
+    }
+    if (config.getScmPaths() == null) {
+    	log.warn("GWC !!!!!!!!!!!!!!set default scm paths");
+    	config.setScmPaths(new ScmPaths(true));
     }
     setAdminConfig(config);
   }
@@ -86,6 +97,12 @@ public class AdminConfigDao {
                 BooleanUtils.toBoolean((String) settings.get(buildStatus))
             ));
           }
+          
+          if (settings.get(scm) != null) {
+        	 config.setScmPaths(new ScmPaths(
+               BooleanUtils.toBoolean((String) settings.get(scm))
+            ));
+          }
 
           return config;
         }
@@ -124,6 +141,10 @@ public class AdminConfigDao {
           settings.put(repoBranchPermissions, BooleanUtils.toStringTrueFalse(config.getRepoPaths().getBranchPermissions()));
           settings.put(buildStatus, BooleanUtils.toStringTrueFalse(config.getRepoPaths().getBuildStatus()));
         }
+        
+        if (config.getScmPaths() != null) {
+        	settings.put(scm,  BooleanUtils.toStringTrueFalse(config.getScmPaths().getScm()));
+        }
 
         setCache(config);
         return config;
@@ -155,4 +176,6 @@ public class AdminConfigDao {
   public static final String repoPullRequests = repoPathPrefix + ".pullRequests";
   public static final String repoBranchPermissions = repoPathPrefix + ".branchPermissions";
   public static final String buildStatus = repoPathPrefix + ".buildStatus";
+  public static final String scmPathsPrefix = BASE + ".scmPaths";
+  public static final String scm = BASE + scmPathsPrefix + ".scm";
 }

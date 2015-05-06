@@ -86,4 +86,14 @@ public class PathMatcherTest {
     assertTrue(sut.pathAllowed("/rest/build-status/1.0/commits/stats/dsf89h2fsdf"));
     assertTrue(sut.pathAllowed("/rest/build-status/1.0/commits/8sd9jcsadfsdf"));
   }
+  
+  @Test
+  public void testScmPath() {
+	  ScmPaths scmPath = new ScmPaths();
+	  scmPath.setScm(true);
+	  
+	  PathMatcher sut = new PathMatcher(scmPath);
+	  
+	  assertTrue(sut.pathAllowed("/scm/foobar"));
+  }
 }

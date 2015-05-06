@@ -58,7 +58,7 @@ public class TokenAuthenticationHandler implements HttpAuthenticationHandler {
     String token = request.getHeader(TOKEN_HEADER);
     String path = request.getRequestURI().replaceFirst(request.getContextPath(), "");
 
-    if (isNotEmpty(username) && isNotEmpty(token) && path.startsWith("/rest/")) {
+    if (isNotEmpty(username) && isNotEmpty(token) && (path.startsWith("/rest/") || path.startsWith("/scm/"))) {
       if (isTokenValid(path, username, token)) {
         return userService.getUserByName(username);
       }
@@ -83,13 +83,14 @@ public class TokenAuthenticationHandler implements HttpAuthenticationHandler {
       }
 
       Integer ttl = adminDao.getAdminConfig().getTtl();
-      DateTime expiry = new DateTime(Long.parseLong(split[1])).plusDays(ttl);
+      DateTime expiry = new DateTime(Long.parseLong(split[1])).plusHours(ttl);
       if (Objects.equals(split[0], username) && (ttl <= 0 || DateTime.now().isBefore(expiry))) {
         //token is valid, see if the path is allowed token access by admin
         return new PathMatcher(
             config.getAdminPaths(),
             config.getProjectPaths(),
-            config.getRepoPaths()
+            config.getRepoPaths(),
+            config.getScmPaths()
         ).pathAllowed(path) && Objects.equals(userDao.getUserConfig(username).getToken(), token);
       } else if (Objects.equals(split[0], username) && DateTime.now().isAfter(expiry)) {
         //token is expired, generate a new one

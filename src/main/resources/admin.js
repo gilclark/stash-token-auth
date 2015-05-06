@@ -14,6 +14,7 @@ var adminInit = function () {
                 applyPathConfig(config, "admin");
                 applyPathConfig(config, "repo");
                 applyPathConfig(config, "project");
+                applyPathConfig(config, "scm");
             }
         });
     }
@@ -53,11 +54,13 @@ var adminInit = function () {
         var config = {
             ttl: $("#ttl").attr("value"),
             key: $("#key").attr("value"),
-            enabled: $("#enabled").prop("checked")
+            enabled: $("#enabled").prop("checked"),
+            scmPaths: $("#scm").prop("checked")
         };
         readPathConfig(config, "admin");
         readPathConfig(config, "project");
         readPathConfig(config, "repo");
+        readPathConfig(config, "scm");
 
         console.log(config);
         $.ajax({

@@ -3,6 +3,7 @@ package com.thundermoose.plugins.admin;
 import com.thundermoose.plugins.paths.AdminPaths;
 import com.thundermoose.plugins.paths.ProjectPaths;
 import com.thundermoose.plugins.paths.RepoPaths;
+import com.thundermoose.plugins.paths.ScmPaths;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -25,6 +26,8 @@ public class AdminConfig {
   private ProjectPaths projectPaths;
   @XmlElement
   private RepoPaths repoPaths;
+  @XmlElement
+  private ScmPaths scmPaths;
 
   public Boolean getEnabled() {
     return enabled;
@@ -72,5 +75,13 @@ public class AdminConfig {
 
   public void setRepoPaths(RepoPaths repoPaths) {
     this.repoPaths = repoPaths;
+  }
+  
+  public ScmPaths getScmPaths() {
+	return scmPaths;
+  }
+
+  public void setScmPaths(ScmPaths scmPaths) {
+    this.scmPaths = scmPaths;
   }
 }
