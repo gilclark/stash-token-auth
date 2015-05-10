@@ -19,7 +19,6 @@ import com.thundermoose.plugins.user.UserConfig;
 import com.thundermoose.plugins.paths.AdminPaths;
 import com.thundermoose.plugins.paths.ProjectPaths;
 import com.thundermoose.plugins.paths.RepoPaths;
-import com.thundermoose.plugins.paths.ScmPaths;
 import com.thundermoose.plugins.utils.KeyGenerator;
 import com.thundermoose.plugins.utils.Encrypter;
 import com.thundermoose.plugins.utils.Utils;
@@ -56,7 +55,6 @@ public class TokenAuthenticationHandlerTest{
     adminConfig.setAdminPaths(new AdminPaths(true, true, true, true));
     adminConfig.setProjectPaths(new ProjectPaths(true, true));
     adminConfig.setRepoPaths(new RepoPaths(true, true, true, true, true, true));
-    adminConfig.setScmPaths(new ScmPaths(true));
   }
 
   @Test
@@ -68,7 +66,7 @@ public class TokenAuthenticationHandlerTest{
     when(userDao.getUserConfig("testuser")).thenReturn(userConfig);
     when(adminDao.getAdminConfig()).thenReturn(adminConfig);
 
-    assertFalse(sut.isTokenValid("/rest/api/1.0/projects/TEST/repos", "testuser", token));
+    assertFalse(sut.isRestTokenValid("/rest/api/1.0/projects/TEST/repos", "testuser", token));
   }
 
   @Test
@@ -80,7 +78,7 @@ public class TokenAuthenticationHandlerTest{
     when(userDao.getUserConfig("testuser")).thenReturn(userConfig);
     when(adminDao.getAdminConfig()).thenReturn(adminConfig);
 
-    assertTrue(sut.isTokenValid("/rest/api/1.0/projects/TEST/repos", "testuser", token));
+    assertTrue(sut.isRestTokenValid("/rest/api/1.0/projects/TEST/repos", "testuser", token));
   }
 
   @Test
@@ -93,7 +91,7 @@ public class TokenAuthenticationHandlerTest{
     when(userDao.getUserConfig("testuser")).thenReturn(userConfig);
     when(adminDao.getAdminConfig()).thenReturn(adminConfig);
 
-    assertTrue(sut.isTokenValid("/rest/api/1.0/projects/TEST/repos", "testuser", token));
+    assertTrue(sut.isRestTokenValid("/rest/api/1.0/projects/TEST/repos", "testuser", token));
   }
 
   @Test
@@ -107,6 +105,6 @@ public class TokenAuthenticationHandlerTest{
     when(adminDao.getAdminConfig()).thenReturn(adminConfig);
 
     String providedToken = encrypter.encrypt("testuser:" + DateTime.now().plusHours(-100).getMillis() + ":" + DateTime.now().plusHours(-100).getMillis() + ":" + UUID.randomUUID().toString());
-    assertFalse(sut.isTokenValid("/rest/api/1.0/projects/TEST/repos", "testuser", providedToken));
+    assertFalse(sut.isRestTokenValid("/rest/api/1.0/projects/TEST/repos", "testuser", providedToken));
   }
 }

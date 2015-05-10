@@ -43,7 +43,7 @@
   <http-auth-handler key="containerAuthenticationHandler"
                      class="com.thundermoose.plugins.TokenAuthenticationHandler"
                      captcha-support="false"
-                     weight="100"/>
+                     weight="90"/>
 
   <rest key="rest" path="/auth-token" version="1.0">
     <description>Provides REST resources for the admin UI.</description>

@@ -3,7 +3,6 @@ package com.thundermoose.plugins.admin;
 import com.thundermoose.plugins.paths.AdminPaths;
 import com.thundermoose.plugins.paths.ProjectPaths;
 import com.thundermoose.plugins.paths.RepoPaths;
-import com.thundermoose.plugins.paths.ScmPaths;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -13,75 +12,74 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 public class AdminConfig {
-  @XmlElement
-  private Boolean enabled;
-  @XmlElement
-  private Integer ttl;
-  @XmlElement
-  private String key;
+	@XmlElement
+	private Boolean enabled;
+	@XmlElement
+	Boolean scmEnabled;
+	@XmlElement
+	private Integer ttl;
+	@XmlElement
+	private String key;
+	@XmlElement
+	private AdminPaths adminPaths;
+	@XmlElement
+	private ProjectPaths projectPaths;
+	@XmlElement
+	private RepoPaths repoPaths;
 
-  @XmlElement
-  private AdminPaths adminPaths;
-  @XmlElement
-  private ProjectPaths projectPaths;
-  @XmlElement
-  private RepoPaths repoPaths;
-  @XmlElement
-  private ScmPaths scmPaths;
+	public Boolean getEnabled() {
+		return enabled;
+	}
 
-  public Boolean getEnabled() {
-    return enabled;
-  }
+	public void setEnabled(Boolean enabled) {
+		this.enabled = enabled;
+	}
 
-  public void setEnabled(Boolean enabled) {
-    this.enabled = enabled;
-  }
+	public Integer getTtl() {
+		return ttl;
+	}
 
-  public Integer getTtl() {
-    return ttl;
-  }
+	public void setTtl(Integer ttl) {
+		this.ttl = ttl;
+	}
 
-  public void setTtl(Integer ttl) {
-    this.ttl = ttl;
-  }
+	public Boolean getScmEnabled() {
+		return scmEnabled;
+	}
 
-  public String getKey() {
-    return key;
-  }
+	public void setScmEnabled(Boolean scmEnabled) {
+		this.scmEnabled = scmEnabled;
+	}
 
-  public void setKey(String key) {
-    this.key = key;
-  }
+	public String getKey() {
+		return key;
+	}
 
-  public AdminPaths getAdminPaths() {
-    return adminPaths;
-  }
+	public void setKey(String key) {
+		this.key = key;
+	}
 
-  public void setAdminPaths(AdminPaths adminPaths) {
-    this.adminPaths = adminPaths;
-  }
+	public AdminPaths getAdminPaths() {
+		return adminPaths;
+	}
 
-  public ProjectPaths getProjectPaths() {
-    return projectPaths;
-  }
+	public void setAdminPaths(AdminPaths adminPaths) {
+		this.adminPaths = adminPaths;
+	}
 
-  public void setProjectPaths(ProjectPaths projectPaths) {
-    this.projectPaths = projectPaths;
-  }
+	public ProjectPaths getProjectPaths() {
+		return projectPaths;
+	}
 
-  public RepoPaths getRepoPaths() {
-    return repoPaths;
-  }
+	public void setProjectPaths(ProjectPaths projectPaths) {
+		this.projectPaths = projectPaths;
+	}
 
-  public void setRepoPaths(RepoPaths repoPaths) {
-    this.repoPaths = repoPaths;
-  }
-  
-  public ScmPaths getScmPaths() {
-	return scmPaths;
-  }
+	public RepoPaths getRepoPaths() {
+		return repoPaths;
+	}
 
-  public void setScmPaths(ScmPaths scmPaths) {
-    this.scmPaths = scmPaths;
-  }
+	public void setRepoPaths(RepoPaths repoPaths) {
+		this.repoPaths = repoPaths;
+	}
 }
